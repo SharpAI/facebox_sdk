@@ -21,7 +21,7 @@
           "accuracy": Accuracy,
           "fuzziness": Image Fuzziness Score,
           "type":"face",
-          "style":"front"
+          "style": Reversed
         }
     ],
     "person_id": Recognized Person ID
@@ -40,7 +40,7 @@
             "current_ts": Current timestamp,
             "fuzziness": Image Fuzziness Score,
             "type":"face",
-            "style":"front"
+            "style": Reversed
         }
     ],"person_id": Reversed
 }
