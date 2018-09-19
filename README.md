@@ -13,7 +13,7 @@
     "status":"known person",
     "persons":[
         {
-          "id":,
+          "id": Recognized Person ID,
           "uuid": Facebox Device ID,
           "group_id": Group ID,
           "img_url": Recognized Face Image,
@@ -31,7 +31,6 @@
     "status":"Stranger",
     "persons": [
         {
-            "id":  Recognized Person ID,
             "uuid": Facebox Device ID,
             "group_id": Group ID,
             "img_url": Face Image of detected face,
