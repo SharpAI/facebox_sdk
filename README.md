@@ -19,9 +19,7 @@
           "img_url": Recognized Face Image,
           "current_ts": Current timestamp,
           "accuracy": Accuracy,
-          "fuzziness": Image Fuzziness Score,
-          "type":"face",
-          "style": Reversed
+          "fuzziness": Image Fuzziness Score
         }
     ],
     "person_id": Recognized Person ID
@@ -38,9 +36,7 @@
             "group_id": Group ID,
             "img_url": Face Image of detected face,
             "current_ts": Current timestamp,
-            "fuzziness": Image Fuzziness Score,
-            "type":"face",
-            "style": Reversed
+            "fuzziness": Image Fuzziness Score
         }
     ],"person_id": Reversed
 }
