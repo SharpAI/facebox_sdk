@@ -1,0 +1,20 @@
+{
+  "name": "workai",
+  "version": "1.0.0",
+  "description": "Work AI based plugin for NVR",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solderzzc/ImageBuilder-DeepLearning"
+  },
+  "bugs": {
+    "url": "https://github.com/solderzzc/DeepLearning/issues"
+  },
+  "homepage": "https://work-ai.github.io",
+  "dependencies": {
+    "mqtt":"^2.18.8"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  }
+}
