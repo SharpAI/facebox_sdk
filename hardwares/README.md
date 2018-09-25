@@ -12,6 +12,10 @@ We ported the system/software into RK3399 Set Top Box. Since it's less expensive
 
 There's heat problem with this setup due to hardware design(heat sink is located on wrong side), you need open box and setup a fans to keep it running overnight/weeks.
 
+Just for example, [RK3399 STB](https://www.ebay.com/itm/H96-Max-4GB-32GB-Rockchip-RK3399-Six-Core-Android-7-1-TV-Box-Dual-WiFi-Player/322977652640?epid=26023719805&hash=item4b32f7dfa0:g:JU0AAOSwJ-5aTZxR)
+
+Our image only support 4GB 32GB for now.
+
 ### POE injector
 
-Most of them works. The Dahua camere is sold without power adapter so POE injector is needed.
+Most of them works. The Dahua camere is sold without power adapter so [POE injector](https://www.amazon.com/TP-LINK-TL-PoE150S-Injector-Adapter-compliant/dp/B001PS9E5I/ref=sr_1_3?s=electronics&ie=UTF8&qid=1537916196&sr=1-3&keywords=poe+injector) is needed.
