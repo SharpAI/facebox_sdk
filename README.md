@@ -1,3 +1,5 @@
+# [Prepare Hardware](hardwares)
+
 # Facebox SDK
 
 ## Usage
