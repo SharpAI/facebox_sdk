@@ -1,5 +1,5 @@
 # [Prepare Hardware](hardwares)
-
+# [Burn Firmware](firmware)
 # Facebox SDK
 
 ## Usage
