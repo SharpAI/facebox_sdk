@@ -4,7 +4,7 @@
 
 ## Usage
 
-### Get the ip address of Facebox through 'Circle Point' APP
+### Get the ip address of Facebox through 'Circle Point' APP(Chinese version only for now)
 ### Change the IP address in source code
 ### Run the sample code
 
