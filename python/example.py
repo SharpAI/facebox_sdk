@@ -30,7 +30,7 @@ def on_message(client, userdata, msg):
                 person_id = person.get("id")
                 group_id = person.get("group_id")
 
-                url = "http://192.168.31.173:3000/restapi/get_name_by_faceid?group_id={}&face_id={}".format(group_id, person_id)
+                url = "http://workaihost.tiegushi.com/restapi/get_name_by_faceid?group_id={}&face_id={}".format(group_id, person_id)
                 response = requests.get(url)
                 name = json.loads(response.text).get("name")
                 person["name"] = name
@@ -44,7 +44,8 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("192.168.31.155", 1883, 60)
+# ip修改为盒子的地址
+client.connect("192.168.31.199", 1883, 60)
 
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.

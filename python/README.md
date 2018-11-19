@@ -16,3 +16,22 @@ client.connect("your facebox ip", 1883, 60)
 ```
 python example.py
 ```
+
+### Known Person Event
+```
+{
+    "status":"known person",
+    "persons":[
+        {
+          "id": Recognized Person ID,
+          "name" Known Person Name,
+          "uuid": Facebox Device ID,
+          "group_id": Group ID,
+          "img_url": Recognized Face Image,
+          "current_ts": Current timestamp,
+          "accuracy": Accuracy,
+          "fuzziness": Image Fuzziness Score
+        }
+    ],
+    "person_id": Recognized Person ID
+}
