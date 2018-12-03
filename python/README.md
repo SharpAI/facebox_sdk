@@ -8,7 +8,7 @@ pip install -r requirements.txt
 ## Run the sample code
 
 ```
-python333 main.py
+python3 main.py
 ```
 
 ### Known Person Event
