@@ -2,6 +2,17 @@ import paho.mqtt.client as mqtt
 import time
 import json
 import requests
+import os
+
+def switch_control(duration=1):
+    try:
+        os.system("echo 1 > /sys/class/leds/ledblue/brightness")
+        time.sleep(duration)
+        os.system("echo 0 > /sys/class/leds/ledblue/brightness")
+    except Exception as e:
+        print(e)
+    finally:
+        os.system("echo 0 > /sys/class/leds/ledblue/brightness")
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -41,18 +52,18 @@ def on_message(client, userdata, msg):
                 if sign:
                     print("*****", name, time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(person["current_ts"]/1000)))
                     print(msg.topic+" "+json.dumps(person))
+                    switch_control()
         else:
             print(msg.topic+" "+json.dumps(msg_dict))
     except Exception as e:
         print(e)
+
 
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
 if __name__ == "__main__":
-    
-
     # ip修改为盒子的地址
     client.connect("192.168.31.199", 1883, 60)
 
