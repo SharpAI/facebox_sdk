@@ -65,7 +65,7 @@ def get_host_ip():
 if __name__ == '__main__':
     os.system("echo 0 > /sys/class/leds/ledblue/brightness")
 
-    clean_dict()
+    #clean_dict()
 
     # ip修改为盒子的地址
     client.connect(str(get_host_ip()), 1883, 60)
