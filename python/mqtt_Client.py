@@ -47,12 +47,12 @@ def on_message(client, userdata, msg):
                 person["name"] = name
                 person["status"] = "known person"
 
-                from main import setValue
-                sign = setValue(person_id)
-                if sign:
-                    print("*****", name, time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(person["current_ts"]/1000)))
-                    print(msg.topic+" "+json.dumps(person))
-                    switch_control()
+                #from main import setValue
+                #sign = setValue(person_id)
+                #if sign:
+                print("*****", name, time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(person["current_ts"]/1000)))
+                print(msg.topic+" "+json.dumps(person))
+                switch_control()
         else:
             print(msg.topic+" "+json.dumps(msg_dict))
     except Exception as e:
