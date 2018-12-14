@@ -9,5 +9,7 @@
 
 ## Download upgrade_tool
 
-link: https://pan.baidu.com/s/1kVkflH1 password: ug3f
+link: https://pan.baidu.com/s/1kVkflH1 password: ug3f  
+```
 sudo ./upgrade_tool uf yourpath/update.img
+```
