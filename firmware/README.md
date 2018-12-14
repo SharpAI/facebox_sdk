@@ -32,3 +32,6 @@ password: SharpAI2018
 ## Find IP address
 
 Download `来了吗` on APP store, scan for network device for ip address.
+
+
+## [Tested device lists](https://github.com/SharpAI/facebox_sdk/tree/master/hardwares)
