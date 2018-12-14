@@ -19,3 +19,6 @@ Our image only support 4GB 32GB for now.
 ### POE injector
 
 Most of them works. The Dahua camere is sold without power adapter so [POE injector](https://www.amazon.com/TP-LINK-TL-PoE150S-Injector-Adapter-compliant/dp/B001PS9E5I/ref=sr_1_3?s=electronics&ie=UTF8&qid=1537916196&sr=1-3&keywords=poe+injector) is needed.
+
+## [How to burn firmware](https://github.com/SharpAI/facebox_sdk/tree/master/firmware)
+
