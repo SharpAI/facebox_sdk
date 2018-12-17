@@ -30,12 +30,14 @@ public class TrafficLightActivity extends Activity implements MqttCallback {
 	private MqttClient mqttClient;
 
 	public static final String BROKER_URL = "tcp://192.168.0.2:1883";
+	private boolean mConnectedToBroker = false;
 
 
 	private final static UUID TLC_UUID = UUID.fromString("10d4fbe9-fdae-407f-8696-80130bafbd92");
 	public static final String TOPIC = "rt_message";
 	public static final String TAG = "SharpAI";
 
+	private MqttCallback mMqttCallback;
 	private boolean hasGLES20() {
 		ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
 		ConfigurationInfo info = am.getDeviceConfigurationInfo();
@@ -46,6 +48,9 @@ public class TrafficLightActivity extends Activity implements MqttCallback {
 	@Override
 	public void connectionLost(Throwable cause) {
 		Log.d(TAG,"connectionLost");
+        mConnectedToBroker = false;
+
+		mRenderer.GetTL().SetOff();
 	}
 
 	@Override
@@ -78,6 +83,7 @@ public class TrafficLightActivity extends Activity implements MqttCallback {
 		} else if(topic.equals("test")){
 
 			Log.i(TAG,"Test");
+            mConnectedToBroker = true;
 			mRenderer.GetTL().SetGreen();
 			Timer myTimer = new Timer();
 			myTimer.schedule(new TimerTask() {
@@ -96,23 +102,42 @@ public class TrafficLightActivity extends Activity implements MqttCallback {
 	@Override
 	public void deliveryComplete(IMqttDeliveryToken token) {
 	}
-	
+
+	private void reConnectToMQTT(){
+        mConnectedToBroker = false;
+        try {
+            MemoryPersistence persistence = new MemoryPersistence();
+            mqttClient = new MqttClient(BROKER_URL,MqttClient.generateClientId(),persistence);
+            mqttClient.setCallback(mMqttCallback);
+            mqttClient.connect();
+            mqttClient.subscribe(TOPIC);
+            mqttClient.subscribe("test");
+            final MqttMessage message = new MqttMessage("testing".getBytes());
+            mqttClient.publish("test",message);
+        } catch (MqttException e) {
+            e.printStackTrace();
+            mConnectedToBroker = false;
+        }
+
+	}
+    private void startIntervalForMQTTReconnect(){
+
+        Timer myTimer = new Timer();
+        myTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if(mConnectedToBroker == false){
+                    reConnectToMQTT();
+                }
+            }
+
+        }, 1000, 6000);
+    }
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		try {
-			MemoryPersistence persistence = new MemoryPersistence();
-			mqttClient = new MqttClient(BROKER_URL,MqttClient.generateClientId(),persistence);
-			mqttClient.setCallback(this);
-			mqttClient.connect();
-			mqttClient.subscribe(TOPIC);
-			mqttClient.subscribe("test");
-			final MqttMessage message = new MqttMessage("testing".getBytes());
-			mqttClient.publish("test",message);
-		} catch (MqttException e) {
-			e.printStackTrace();
-		}
+		mMqttCallback = this;
+        startIntervalForMQTTReconnect();
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		

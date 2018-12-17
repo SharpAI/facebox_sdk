@@ -341,7 +341,7 @@ public class TrafficLightRenderer implements Renderer {
 		//trafficLight.Run(timer.getDelta());
 		trafficLight.Change(timer.getDelta());
 
-		Log.i(TAG,"Change color right now");
+		//Log.i(TAG,"Change color right now");
 		switch (trafficLight.GetActiveColor())
 		{
 		case C_RED: textureHandle = mTextureDataHandle_R; break;
