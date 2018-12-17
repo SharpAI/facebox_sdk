@@ -17,6 +17,8 @@ import android.opengl.Matrix;
 import android.opengl.GLSurfaceView.Renderer;
 import android.util.Log;
 
+import static com.sharpaiexample.TrafficLightActivity.TAG;
+
 
 public class TrafficLightRenderer implements Renderer {
 	/*Asset*/
@@ -336,8 +338,10 @@ public class TrafficLightRenderer implements Renderer {
 		int textureHandle = 0;
 		
 		timer.Actualize();
-		trafficLight.Run(timer.getDelta());
-		
+		//trafficLight.Run(timer.getDelta());
+		trafficLight.Change(timer.getDelta());
+
+		Log.i(TAG,"Change color right now");
 		switch (trafficLight.GetActiveColor())
 		{
 		case C_RED: textureHandle = mTextureDataHandle_R; break;

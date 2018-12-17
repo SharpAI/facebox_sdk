@@ -21,6 +21,8 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class TrafficLightActivity extends Activity implements MqttCallback {
 	GLSurfaceView mGLView;
@@ -32,33 +34,63 @@ public class TrafficLightActivity extends Activity implements MqttCallback {
 
 	private final static UUID TLC_UUID = UUID.fromString("10d4fbe9-fdae-407f-8696-80130bafbd92");
 	public static final String TOPIC = "rt_message";
+	public static final String TAG = "SharpAI";
 
 	private boolean hasGLES20() {
 		ActivityManager am = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
 		ConfigurationInfo info = am.getDeviceConfigurationInfo();
-		Log.i("Prosectura", "Gles Version: " + (info.reqGlEsVersion >> 16) + "." + (info.reqGlEsVersion & 0xffff));
+		Log.i(TAG, "Gles Version: " + (info.reqGlEsVersion >> 16) + "." + (info.reqGlEsVersion & 0xffff));
 		return info.reqGlEsVersion >= 0x20000;
 	}
 
 	@Override
 	public void connectionLost(Throwable cause) {
-		Log.d("Prosectura","connectionLost");
+		Log.d(TAG,"connectionLost");
 	}
 
 	@Override
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
-		Log.d("Prosectura",message.toString());
-
-		mRenderer.GetTL().SetGreen();
-		Timer myTimer = new Timer();
-		myTimer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				mRenderer.GetTL().SetRed();
-				this.cancel();
+		Log.d(TAG,message.toString());
+		if(topic.equals("rt_message")){
+			String  status = "";
+			try{
+				JSONObject mainObject = new JSONObject(message.toString());
+				status = mainObject.getString("status");// mainObject.getJsonString("name");
+			} catch (JSONException e){
+				Log.e(TAG,"exception of JSONException");
 			}
+			if(status.equals("known person")){
+				Log.i(TAG,"known person");
+				mRenderer.GetTL().SetGreen();
+				Timer myTimer = new Timer();
+				myTimer.schedule(new TimerTask() {
+					@Override
+					public void run() {
+						mRenderer.GetTL().SetRed();
+						this.cancel();
+					}
 
-		}, 4000, 1000);
+				}, 4000, 1000);
+
+			} else if(status.equals("Stranger")){
+				Log.i(TAG,"Stranger");
+			}
+		} else if(topic.equals("test")){
+
+			Log.i(TAG,"Test");
+			mRenderer.GetTL().SetGreen();
+			Timer myTimer = new Timer();
+			myTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					mRenderer.GetTL().SetRed();
+					this.cancel();
+				}
+
+			}, 4000, 1000);
+		}
+		//message.toString().
+
 	}
 
 	@Override
@@ -90,7 +122,7 @@ public class TrafficLightActivity extends Activity implements MqttCallback {
 			mGLView.setPreserveEGLContextOnPause(true);
 			mGLView.setRenderer(mRenderer = new TrafficLightRenderer(getAssets()));
 		} else {
-			Log.e("Prosectura", "Gles 2.0 not supported.");
+			Log.e(TAG, "Gles 2.0 not supported.");
 			return;
 		}
 
@@ -113,10 +145,10 @@ public class TrafficLightActivity extends Activity implements MqttCallback {
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_POINTER_DOWN)
 		{
-			Log.w("prosectura_action", "ACTION_POINTER_DOWN");
+			Log.w(TAG, "ACTION_POINTER_DOWN");
 		} else if (event.getAction() == MotionEvent.ACTION_UP)
 		{
-			Log.w("prosectura_action", "ACTION_POINTER_UP");
+			Log.w(TAG, "ACTION_POINTER_UP");
 			int iaxisY = 800 >> 2;
 			if (event.getAxisValue(MotionEvent.AXIS_Y) <= (iaxisY*1)) {
 				mRenderer.GetTL().SetRed();

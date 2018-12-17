@@ -129,5 +129,17 @@ public class TrafficLight {
 			}
 		}
 	}
-	
+	public void Change(double timeDelta) {
+		actualTime += timeDelta;
+
+		if (activeState != targetState) {
+			activeState = targetState;
+			switch (activeState) {
+				case ST_BLINKING: activeColor = Color.C_YELLOW; break;
+				case ST_OFF: activeColor = Color.C_OFF; break;
+				case ST_GREEN: activeColor = Color.C_GREEN; break;
+				case ST_RED: activeColor = Color.C_RED; break;
+			}
+		}
+	}
 }
