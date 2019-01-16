@@ -68,3 +68,4 @@ while [ 1 ]; do
     if [ 'x'$pidshell = 'x' ];then
 
 ```
+4. reboot
