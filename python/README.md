@@ -25,3 +25,46 @@ python3 main.py
   "accuracy": Accuracy,
   "fuzziness": Image Fuzziness Score
 }
+```
+
+### sdk加入汪汪盒自动启动脚本
+1. 在root下执行 cd /.cacheresource
+2. vim deepeyeruntime
+3. 修改如下：
+```
+function prepare()
+{
+   +echo 1 > /sys/class/leds/my-red-power/brightness
+    start_avahi
+    start_network
+    start_watchdog
+
+function deepeyeinit()
+{
+   -pushd ${RUNTIME}
+   -YML=./docker-compose.yml
+   +pushd /root/sharpai/docker
+   +YML=./docker-compose-prebuilt.yml
+    prepare
+
+    if [ $1'x' == 'x' ];then
+
+while [ 1 ]; do
+    pushd ${RUNTIME}
+  - ./do_update.sh
+  - ./checkupdate.sh
+  - check_reboot
+  + #./do_update.sh
+  + #./checkupdate.sh
+  + #check_reboot
+  +
+  + pidsdk=$(ps aux | grep \[m]ain.py |  awk '{print $2}')
+  + if [ 'x'$pidsdk = 'x' ];then
+  +     echo "pid not found"
+  +     python3 /root/facebox_sdk/python/main.py &
+  + fi
+
+    pidshell=$(ps aux | grep \[m]onitorrun |  awk '{print $2}')
+    if [ 'x'$pidshell = 'x' ];then
+
+```
