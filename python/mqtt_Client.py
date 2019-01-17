@@ -74,7 +74,7 @@ client.on_message = on_message
 
 if __name__ == "__main__":
     # ip修改为盒子的地址
-    client.connect("192.168.31.199", 1883, 60)
+    client.connect("127.0.0.1", 1883, 60)
 
     # Blocking call that processes network traffic, dispatches callbacks and
     # handles reconnecting.
