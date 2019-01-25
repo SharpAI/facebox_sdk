@@ -69,3 +69,18 @@ while [ 1 ]; do
 
 ```
 4. reboot
+
+### 控制闸机开门
+1. 3399设备在/sys/class/leds/my-red/brightness写入1则输出12v高电平，写0则输出0v低电平
+```
+ os.system("echo 1 > /sys/class/leds/my-red/brightness")
+ time.sleep(duration)
+ os.system("echo 0 > /sys/class/leds/my-red/brightness")
+```
+
+2. 3288设备在/sys/class/leds/ledblue/brightness写入1则输出12v高电平，写0则输出0v低电平
+```
+os.system("echo 1 > /sys/class/leds/ledblue/brightness")
+time.sleep(duration)
+os.system("echo 0 > /sys/class/leds/ledblue/brightness")
+```
