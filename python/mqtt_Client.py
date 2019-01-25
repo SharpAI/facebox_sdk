@@ -6,7 +6,7 @@ import json
 import requests
 import os
 
-
+# gate control as inputing 1, otherwise inputing 0.
 def switch_control(duration=1):
     try:
         os.system("echo 1 > /sys/class/leds/ledblue/brightness")
@@ -17,9 +17,8 @@ def switch_control(duration=1):
     finally:
         os.system("echo 0 > /sys/class/leds/ledblue/brightness")
 
+        
 # The callback for when the client receives a CONNACK response from the server.
-
-
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
 
@@ -27,9 +26,8 @@ def on_connect(client, userdata, flags, rc):
     # reconnect then subscriptions will be renewed.
     client.subscribe("rt_message")
 
+    
 # The callback for when a PUBLISH message is received from the server.
-
-
 def on_message(client, userdata, msg):
     print("-" * 10)
     # print(msg.topic+" "+str(msg.payload))
@@ -43,6 +41,8 @@ def on_message(client, userdata, msg):
         # person_id = msg_dict.get("person_id")
         # group_id = msg_dict.get("persons")[0].get("group_id")
         # print(status, person_id, group_id)
+        
+        # call switch_control when receiving known_person msg.
         if status == "known person":
             switch_control()
 
@@ -56,6 +56,7 @@ def on_message(client, userdata, msg):
             #     # person["name"] = name
             #     person["status"] = "known person"
 
+            # call setValue() to set up duration for one person controlling the gate
             #     #from main import setValue
             #     #sign = setValue(person_id)
             #     #if sign:
