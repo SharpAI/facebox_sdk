@@ -13,6 +13,7 @@ link: https://pan.baidu.com/s/1ZTOSH4rwApQFAjmKfN-GYQ password: x158
 ## Burn image to box
 
 ### Push reset button
+<b>push and hold the yellow button, then plug into your pc, holding it for more than 5s.<b>
 ![wechatimg243](https://user-images.githubusercontent.com/3085564/46048900-8d433780-c0e0-11e8-8920-2bdfbe0b67bc.jpeg)
 ### Connect to Ubuntu
 
